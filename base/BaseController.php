@@ -12,6 +12,9 @@ class BaseController extends Controller
     {
         $session = \Yii::$app->session;
 
+        if (!$session->get('auth'))
+            return $this->goBack('/');
+
         if ($session->has('current_page')) {
             $session->addFlash('previous_page', $session->get('current_page'));
             $session->addFlash('current_page', \Yii::$app->request->resolve()[0]);

@@ -3,6 +3,8 @@
  * @var $this \yii\web\View
  * @var $model \app\models\Activity
  */
+
+$this->title = "Добавить событие в календарь " . Yii::$app->name;
 ?>
 
 <div class="row">

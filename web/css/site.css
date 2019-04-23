@@ -1,3 +1,5 @@
+/*@import "bootstrap.min.css";*/
+
 html,
 body {
     height: 100%;
@@ -19,6 +21,7 @@ body {
     background-color: #f5f5f5;
     border-top: 1px solid #ddd;
     padding-top: 20px;
+    text-align: center;
 }
 
 .jumbotron {
@@ -112,4 +115,8 @@ a.desc:after {
 
 .nav > li > form > button.logout:focus {
     outline: none;
+}
+
+.copy {
+    font-size: 14px;
 }

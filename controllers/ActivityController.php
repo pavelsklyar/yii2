@@ -16,4 +16,9 @@ class ActivityController extends BaseController
             ]
         ];
     }
+
+    public function actionMain()
+    {
+        return $this->render('main');
+    }
 }
