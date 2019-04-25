@@ -1,4 +1,5 @@
 /*@import "bootstrap.min.css";*/
+/*@import "all.css";*/
 
 html,
 body {
@@ -119,4 +120,13 @@ a.desc:after {
 
 .copy {
     font-size: 14px;
+}
+
+.t-right {
+    text-align: right;
+}
+
+.close-action-btn {
+    margin-top: 10px;
+    font-size: 12pt;
 }

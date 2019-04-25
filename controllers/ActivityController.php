@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\base\BaseController;
 use app\controllers\actions\ActivityCreateAction;
+use app\controllers\actions\ActivityMainAction;
 
 class ActivityController extends BaseController
 {
@@ -11,14 +12,19 @@ class ActivityController extends BaseController
     public function actions()
     {
         return [
+            'main' => [
+                'class' => ActivityMainAction::class
+            ],
             'create' => [
                 'class' => ActivityCreateAction::class
             ]
         ];
     }
 
-    public function actionMain()
+    public function actionShow($id)
     {
-        return $this->render('main');
+        return $this->render('show', [
+            'id' => $id
+        ]);
     }
 }

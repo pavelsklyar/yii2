@@ -15,7 +15,14 @@ $this->title = "Добавить событие в календарь " . Yii::$
             <?= $form->field($model, 'description')->textarea(['placeholder' => 'необязательно']); ?>
             <?= $form->field($model, 'date_start')->input('date'); ?>
             <?= $form->field($model, 'date_finish')->input('date'); ?>
-            <?= $form->field($model, 'repeated')->checkboxList([
+            <?= $form->field($model, 'is_repeated')->dropDownList([
+                'no_repeat' => 'Не повторять',
+                'every_day' => 'Каждый день',
+                'by_two_day' => 'Каждые два дня',
+                'by_three_days' => 'Каждые три дня',
+                'weekday' => 'По дням'
+            ], ['class' => 'form-control is_repeated_form']); ?>
+            <?= $form->field($model, 'repeated_by')->checkboxList([
                 '1' => 'понедельникам',
                 '2' => 'вторникам',
                 '3' => 'средам',
@@ -25,6 +32,7 @@ $this->title = "Добавить событие в календарь " . Yii::$
                 '7' => 'воскресеньям'
             ]) ?>
             <?= $form->field($model, 'is_blocked')->checkbox(); ?>
+            <?= $form->field($model, 'file_array')->fileInput(['multiple' => true]) ?>
 
             <?= \yii\bootstrap\Html::submitButton("Создать", ['class' => 'btn btn-primary']) ?>
         <?php \yii\bootstrap\ActiveForm::end(); ?>

@@ -22,6 +22,7 @@ AppAsset::register($this);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -80,6 +81,23 @@ AppAsset::register($this);
 <?php endif; ?>
 
 <?php $this->endBody() ?>
+
+<script>
+    document.querySelector(".field-activity-repeated_by").style.display = "none";
+    document.getElementById("activity-is_repeated").onchange = function () {
+        if (document.getElementById("activity-is_repeated").value === "weekday") {
+            document.querySelector(".field-activity-repeated_by").style.display = "block"
+        } else {
+            let nodeList = document.getElementsByName("Activity[repeated_by][]");
+
+            for (let i = 0; i < nodeList.length; i++) {
+                nodeList.item(i).checked = false;
+            }
+
+            document.querySelector(".field-activity-repeated_by").style.display = "none"
+        }
+    }
+</script>
 </body>
 </html>
 <?php $this->endPage() ?>

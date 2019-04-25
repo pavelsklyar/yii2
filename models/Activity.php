@@ -10,8 +10,10 @@ class Activity extends Model
     public $description;
     public $date_start;
     public $date_finish;
-    public $repeated;
+    public $is_repeated;
+    public $repeated_by;
     public $is_blocked;
+    public $file_array;
 
     public function rules()
     {
@@ -22,8 +24,10 @@ class Activity extends Model
             ['date_start', 'string'],
             ['date_finish', 'required'],
             ['date_finish', 'string'],
-            ['repeated', 'number'],
-            ['is_blocked', 'boolean']
+            ['is_repeated', 'string'],
+            ['repeated_by', 'each', 'rule' => ['string']],
+            ['is_blocked', 'boolean'],
+            ['file_array', 'each', 'rule' => ['file', 'maxFiles' => 5]]
         ];
     }
 
@@ -34,8 +38,10 @@ class Activity extends Model
             'description' => 'Описание',
             'date_start' => 'Дата начала',
             'date_finish' => 'Дата окончания',
-            'repeated' => 'Повторять по',
+            'is_repeated' => 'Повторять',
+            'repeated_by' => 'Выберите дни',
             'is_blocked' => 'Блокирующее событие',
+            'file_array' => 'Немного файлов для красоты'
         ];
     }
 }

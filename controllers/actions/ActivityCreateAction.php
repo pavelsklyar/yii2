@@ -16,8 +16,9 @@ class ActivityCreateAction extends Action
             $model->load(\Yii::$app->request->post());
 
             if (!$model->validate())
-                var_dump($model->getErrors());
+                $model->getErrors();
 
+            return $this->controller->render('submit', ['model' => $model]);
         }
 
         return $this->controller->render('create', ['model' => $model]);

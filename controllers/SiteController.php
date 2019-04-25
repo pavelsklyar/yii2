@@ -61,7 +61,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        if (!Yii::$app->user->isGuest) {
+        if (Yii::$app->session->get('auth')) {
             return $this->goHome();
         }
 
