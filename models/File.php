@@ -1,33 +1,69 @@
 <?php
 
-
 namespace app\models;
 
+use Yii;
 
-use yii\helpers\FileHelper;
-use yii\web\UploadedFile;
-
-class File
+/**
+ * This is the model class for table "files".
+ *
+ * @property int $id
+ * @property string $filename
+ * @property string $type
+ * @property string $hash_name
+ * @property int $activity_id
+ * @property string $created_at
+ * @property string $updated_at
+ *
+ * @property Activity $activity
+ */
+class File extends \yii\db\ActiveRecord
 {
-    public static function getUploadedFile(Activity $model, $attr)
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
     {
-        return UploadedFile::getInstance($model, $attr);
+        return 'files';
     }
 
-    public static function getFileName(UploadedFile $file)
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
     {
-        return md5(date("Y-m-d_H-i") . $file->getExtension());
+        return [
+            [['filename', 'type', 'hash_name', 'activity_id'], 'required'],
+            [['activity_id'], 'integer'],
+            [['created_at', 'updated_at'], 'safe'],
+            [['filename'], 'string', 'max' => 100],
+            [['type'], 'string', 'max' => 10],
+            [['hash_name'], 'string', 'max' => 64],
+            [['activity_id'], 'exist', 'skipOnError' => true, 'targetClass' => Activity::className(), 'targetAttribute' => ['activity_id' => 'id']],
+        ];
     }
 
-    public static function getFilePath($filename)
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
     {
-        FileHelper::createDirectory(\Yii::getAlias('@webroot/img'));
-
-        return \Yii::getAlias("@webroot/img/" . $filename);
+        return [
+            'id' => 'ID',
+            'filename' => 'Filename',
+            'type' => 'Type',
+            'hash_name' => 'Hash Name',
+            'activity_id' => 'Activity ID',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
+        ];
     }
 
-    public static function saveUploadedFile(UploadedFile $file, $path) : bool
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getActivity()
     {
-        return $file->saveAs($path);
+        return $this->hasOne(Activity::className(), ['id' => 'activity_id']);
     }
 }
